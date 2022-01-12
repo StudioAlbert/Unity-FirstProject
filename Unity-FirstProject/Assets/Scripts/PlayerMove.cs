@@ -1,13 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMove : MonoBehaviour
 {
 
+    //[SerializeField]
+    //PlayerInput inputs;
+    //PlayerInputSystem inputs;
+    //PlayerNewInputSystem inputs;
+
     [SerializeField]
-    PlayerInput inputs;
-    
+    float moveSpeed = 0.1f;
+
+    Vector3 _movement;
+    public Vector3 Movement{
+        get {return _movement;}
+        set { _movement = value; }
+        }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +29,18 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.gameObject.transform.Translate(inputs.movement);
+        transform.Translate(_movement * Time.deltaTime * moveSpeed);
     }
+
+    public void HandleMovement(System.EventArgs args)
+    {
+
+    }
+
+    private void OnMove(InputValue value)
+    {
+        _movement.x = value.Get<Vector2>().x;
+        _movement.z = value.Get<Vector2>().y;
+    }
+
 }
