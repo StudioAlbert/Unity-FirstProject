@@ -32,15 +32,16 @@ public class PlayerMove : MonoBehaviour
         transform.Translate(_movement * Time.deltaTime * moveSpeed);
     }
 
-    public void HandleMovement(System.EventArgs args)
+    public void HandleMovement(InputAction.CallbackContext ctx)
     {
-
+        _movement.x = ctx.ReadValue<Vector2>().x;
+        _movement.z = ctx.ReadValue<Vector2>().y;
     }
 
-    private void OnMove(InputValue value)
+/*    private void OnMove(InputValue value)
     {
         _movement.x = value.Get<Vector2>().x;
         _movement.z = value.Get<Vector2>().y;
-    }
+    }*/
 
 }
